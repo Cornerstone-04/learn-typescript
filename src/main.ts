@@ -1,20 +1,53 @@
-let myName: string = "Ephraim";
-let meaningOfLife: number;
-let isLoading: boolean;
-let album: any;
-// union type
-let anew: string | number;
+let stringArr: string[] = ["one", "two", "three"];
+let guitars = ["Strat", "Les Paul", 5150];
+let mixedData = ["EVH", 1984, true];
 
-myName = "Cornerstome";
-meaningOfLife = 20;
-isLoading = true;
-album = 1984; //any data type goes
+stringArr[0] = "John";
+stringArr.push("okay");
 
-const sum = (a: number, b: number) => {
-  return a + b;
+guitars.unshift("true");
+
+console.log(stringArr, guitars);
+
+//Tuple
+let myTuple: [string, number, boolean] = ["Dave", 42, true];
+
+//Objects
+let exampleObj = {
+  prop1: "Dave",
+  prop2: "true",
 };
 
-let postId: string | number;
-let isActive: number | boolean;
+exampleObj.prop1 = "Jonh";
 
-let regex: RegExp = /\w+/g;
+type Guitarist = {
+  name: string;
+  active?: boolean;
+  albums: (string | number)[];
+};
+
+interface Singer {
+  name: string;
+  popular?: boolean;
+}
+
+let evh: Guitarist = {
+  name: "Eddie",
+  active: false,
+  albums: ["Van Halen", "1984", 5150],
+};
+let jp: Guitarist = {
+  name: "Jimmy",
+  active: true,
+  albums: ["I", "II", "IV"],
+};
+let riri: Singer = {
+  name: "Rihanna",
+  popular: true,
+};
+
+const greetArtistes = (guitarist: Guitarist, singer: Singer) => {
+  return `Hello ${guitarist.name} & ${singer.name}!`;
+};
+
+console.log(greetArtistes(evh, riri));
