@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "live-server .",
-    "watch-ts": "tsc main.ts --watch"
+    "start": "live-server ./build",
+    "watch-ts": "tsc --watch"
   },
   "author": "",
   "license": "ISC",
