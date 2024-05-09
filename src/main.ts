@@ -1,53 +1,85 @@
-let stringArr: string[] = ["one", "two", "three"];
-let guitars = ["Strat", "Les Paul", 5150];
-let mixedData = ["EVH", 1984, true];
+// Type Aliases
 
-stringArr[0] = "John";
-stringArr.push("okay");
+type stringOrNumber = string | number;
 
-guitars.unshift("true");
-
-console.log(stringArr, guitars);
-
-//Tuple
-let myTuple: [string, number, boolean] = ["Dave", 42, true];
-
-//Objects
-let exampleObj = {
-  prop1: "Dave",
-  prop2: "true",
-};
-
-exampleObj.prop1 = "Jonh";
+type stringOrNumberArray = (string | number)[];
 
 type Guitarist = {
   name: string;
   active?: boolean;
-  albums: (string | number)[];
+  albums: stringOrNumberArray;
 };
 
-interface Singer {
-  name: string;
-  popular?: boolean;
-}
+type UserId = stringOrNumber;
 
-let evh: Guitarist = {
-  name: "Eddie",
-  active: false,
-  albums: ["Van Halen", "1984", 5150],
-};
-let jp: Guitarist = {
-  name: "Jimmy",
-  active: true,
-  albums: ["I", "II", "IV"],
-};
-let riri: Singer = {
-  name: "Rihanna",
-  popular: true,
+let myName: "Dave";
+
+let userName: "Dave" | "John" | "Amy";
+
+//functions
+const add = (a: number, b: number): number => {
+  return a + b;
 };
 
-const greetArtistes = (guitarist: Guitarist, singer: Singer) => {
-  return `Hello ${guitarist.name} & ${singer.name}!`;
+const logMsg = (message: any): void => {
+  console.log(message);
 };
 
-console.log(greetArtistes(evh, riri));
+logMsg(add(2, 3));
+
+let subtract = function (c: number, d: number): number {
+  return c - d;
+};
+
+type mathFunction = (a: number, b: number) => number;
+// interface mathFunction {
+//     (a: number, b: number): number;
+//   }
+
+let multiply: mathFunction = function (c, d) {
+  return c * d;
+};
+
+logMsg(multiply(2, 4));
+
+//optional parameters
+const addAll = (a: number, b: number, c?: number): number => {
+  if (typeof c !== "undefined") return a + b + c;
+  return a + b;
+};
+
+const sumAll = (a: number, b: number, c: number = 2): number => {
+  return a + b + c;
+};
+
+logMsg(addAll(2, 3, 2));
+logMsg(sumAll(2, 3));
+
+//Rest parameters
+const total = (...nums: number[]): number => {
+  return nums.reduce((prev, curr) => prev + curr);
+};
+logMsg(total(1, 2, 3, 4));
+
+const createError = (errMsg: string): never => {
+  throw new Error(errMsg);
+};
+
+const infinite = () => {
+  let i: number = 1;
+  while (true) {
+    i++;
+    if (1 > 100) break;
+  }
+};
+
+const isNumber = (value: any): boolean => {
+  return typeof value === "number" ? true : false;
+};
+
+const numberOrString = (value: number | string): string => {
+  // type guards
+  if (typeof value === "string") return "string";
+  if (isNumber(value)) return "number";
+  return createError("This should never happen"); //return a never type to handle a potential undefined
+};

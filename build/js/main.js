@@ -1,34 +1,60 @@
 "use strict";
-let stringArr = ["one", "two", "three"];
-let guitars = ["Strat", "Les Paul", 5150];
-let mixedData = ["EVH", 1984, true];
-stringArr[0] = "John";
-stringArr.push("okay");
-guitars.unshift("true");
-console.log(stringArr, guitars);
-//Tuple
-let myTuple = ["Dave", 42, true];
-//Objects
-let exampleObj = {
-    prop1: "Dave",
-    prop2: "true",
+// Type Aliases
+let myName;
+let userName;
+//functions
+const add = (a, b) => {
+    return a + b;
 };
-exampleObj.prop1 = "Jonh";
-let evh = {
-    name: "Eddie",
-    active: false,
-    albums: ["Van Halen", "1984", 5150],
+const logMsg = (message) => {
+    console.log(message);
 };
-let jp = {
-    name: "Jimmy",
-    active: true,
-    albums: ["I", "II", "IV"],
+logMsg(add(2, 3));
+let subtract = function (c, d) {
+    return c - d;
 };
-let riri = {
-    name: "Rihanna",
-    popular: true,
+// interface mathFunction {
+//     (a: number, b: number): number;
+//   }
+let multiply = function (c, d) {
+    return c * d;
 };
-const greetArtistes = (guitarist, singer) => {
-    return `Hello ${guitarist.name} & ${singer.name}!`;
+logMsg(multiply(2, 4));
+//optional parameters
+const addAll = (a, b, c) => {
+    if (typeof c !== "undefined")
+        return a + b + c;
+    return a + b;
 };
-console.log(greetArtistes(evh, riri));
+const sumAll = (a, b, c = 2) => {
+    return a + b + c;
+};
+logMsg(addAll(2, 3, 2));
+logMsg(sumAll(2, 3));
+//Rest parameters
+const total = (...nums) => {
+    return nums.reduce((prev, curr) => prev + curr);
+};
+logMsg(total(1, 2, 3, 4));
+const createError = (errMsg) => {
+    throw new Error(errMsg);
+};
+const infinite = () => {
+    let i = 1;
+    while (true) {
+        i++;
+        if (1 > 100)
+            break;
+    }
+};
+const isNumber = (value) => {
+    return typeof value === "number" ? true : false;
+};
+const numberOrString = (value) => {
+    // type guards
+    if (typeof value === "string")
+        return "string";
+    if (isNumber(value))
+        return "number";
+    return createError("This should never happen"); //return a never type to handle a potential undefined
+};

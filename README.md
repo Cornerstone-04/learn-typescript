@@ -125,3 +125,125 @@ for functions
         popular: true,
     };
 ```
+
+### Enums
+
+- Unlike most TypeScript features, enums are not a type-level addition to JavaScript but something added to the Language and runtime.
+
+```Typescript
+    enum Grade {
+        F,
+        E,
+        D,
+        C,
+        B,
+        A,
+    }
+    let grade: Grade = Grade.A;
+```
+
+### Type Aliases
+
+```Javascript
+    type stringOrNumber = string | number;
+
+    type stringOrNumberArray = (string | number)[];
+
+    type Guitarist = {
+        name: string;
+        active?: boolean;
+        albums: stringOrNumberArray;
+    };
+
+    type UserId = stringOrNumber;
+```
+
+-----
+
+## Functions
+
+```TypeScript
+const add = (a: number, b: number): number => {
+  return a + b;
+};
+
+const logMsg = (message: any): void => {
+  console.log(message);
+};
+
+logMsg(add(2, 3));
+
+let subtract = function (c: number, d: number): number {
+  return c - d;
+};
+
+type mathFunction = (a: number, b: number) => number;
+// interface mathFunction {
+//     (a: number, b: number): number;
+//   }
+
+let multiply: mathFunction = function (c, d) {
+  return c * d;
+};
+
+logMsg(multiply(2, 4));
+```
+
+### Optional parameters
+
+- place a type guard to prevent type error.
+- your optional parameter should be last.
+
+```TypeScript
+const addAll = (a: number, b: number, c?: number): number => {
+  if (typeof c !== "undefined") return a + b + c;
+  return a + b;
+};
+```
+
+### Rest Parameters
+
+- rest parameter should come last.
+
+```TypeScript
+const total = (...nums: number[]): number => {
+  return nums.reduce((prev, curr) => prev + curr);
+};
+logMsg(total(1, 2, 3, 4));
+```
+
+### Never Type
+
+- Can be used to return errors and infinit loops
+
+```TypeScript
+const createError = (errMsg: string): never => {
+  throw new Error(errMsg);
+};
+
+const infinite = () => {
+  let i: number = 1;
+  while (true) {
+    i++;
+    if (1 > 100) break;
+  }
+};
+
+const isNumber = (value: any): boolean => {
+  return typeof value === "number" ? true : false;
+};
+
+const numberOrString = (value: number | string): string => {
+  // type guards
+  if (typeof value === "string") return "string";
+  if (isNumber(value)) return "number";
+  return createError("This should never happen"); //return a never type to handle a potential undefined
+};
+```
+
+-----
+
+## Type Assertion & Type Casting
+
+- Type assertion is a way to tell the compiler that we know better than it.
+  - It's telling the compiler that you have more information about the types that it does, so it should listen to you.
