@@ -158,7 +158,7 @@ for functions
     type UserId = stringOrNumber;
 ```
 
------
+---
 
 ## Functions
 
@@ -241,9 +241,49 @@ const numberOrString = (value: number | string): string => {
 };
 ```
 
------
+---
 
 ## Type Assertion & Type Casting
 
 - Type assertion is a way to tell the compiler that we know better than it.
   - It's telling the compiler that you have more information about the types that it does, so it should listen to you.
+- Assign using "as" keyword
+- _*Ask Gabriel to explain this to you*_
+
+```TypeScript
+type One = string;
+type Two = string | number;
+type Three = "Hello";
+
+// Tyep assertion
+// convert to more or less specific
+let a: One = "Hello";
+let b = a as Two; //assign a less specific type
+let c = a as Three; //more specific
+let d = <One>"World";
+
+const addOrConcat = (
+  a: number,
+  b: number,
+  c: "add" | "concat"
+): number | string => {
+  if (c === "add") return a + b;
+  return " " + a + b;
+};
+
+let myVal: string = addOrConcat(2, 2, "concat") as string;
+// TS doesn't see the problem
+let nextVal: number = addOrConcat(2, 2, "concat") as number;
+```
+
+- Assertions can be used with DOM
+
+```TypeScript
+//The DOM
+const img = document.querySelector("img") as HTMLImageElement;
+// const myImg = document.getElementById("#img")! non null assertion;
+const myImg = document.getElementById("#img");
+
+img.src;
+myImg.src //might be null
+```

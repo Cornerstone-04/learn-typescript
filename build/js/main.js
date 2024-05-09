@@ -1,60 +1,21 @@
 "use strict";
-// Type Aliases
-let myName;
-let userName;
-//functions
-const add = (a, b) => {
-    return a + b;
+// Tyep assertion
+// convert to more or less specific
+let a = "Hello";
+let b = a; //assign a less specific type
+let c = a; //more specific
+let d = "World";
+const addOrConcat = (a, b, c) => {
+    if (c === "add")
+        return a + b;
+    return " " + a + b;
 };
-const logMsg = (message) => {
-    console.log(message);
-};
-logMsg(add(2, 3));
-let subtract = function (c, d) {
-    return c - d;
-};
-// interface mathFunction {
-//     (a: number, b: number): number;
-//   }
-let multiply = function (c, d) {
-    return c * d;
-};
-logMsg(multiply(2, 4));
-//optional parameters
-const addAll = (a, b, c) => {
-    if (typeof c !== "undefined")
-        return a + b + c;
-    return a + b;
-};
-const sumAll = (a, b, c = 2) => {
-    return a + b + c;
-};
-logMsg(addAll(2, 3, 2));
-logMsg(sumAll(2, 3));
-//Rest parameters
-const total = (...nums) => {
-    return nums.reduce((prev, curr) => prev + curr);
-};
-logMsg(total(1, 2, 3, 4));
-const createError = (errMsg) => {
-    throw new Error(errMsg);
-};
-const infinite = () => {
-    let i = 1;
-    while (true) {
-        i++;
-        if (1 > 100)
-            break;
-    }
-};
-const isNumber = (value) => {
-    return typeof value === "number" ? true : false;
-};
-const numberOrString = (value) => {
-    // type guards
-    if (typeof value === "string")
-        return "string";
-    if (isNumber(value))
-        return "number";
-    return createError("This should never happen"); //return a never type to handle a potential undefined
-};
+let myVal = addOrConcat(2, 2, "concat");
+// TS doesn't see the problem
+let nextVal = addOrConcat(2, 2, "concat");
+console.log(myVal, nextVal);
+//The DOM
+const img = document.querySelector("img");
+// const myImg = document.getElementById("#img")! non null assertion;
+const myImg = document.getElementById("#img");
+img.src;
