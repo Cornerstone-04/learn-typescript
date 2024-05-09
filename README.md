@@ -18,7 +18,7 @@
 
 ## Explicit declaration
 
-- Declare a type with format "dataname: datatype"
+- Declare a type with format "dataName: dataType"
 
 ```Typescript
     let myName: string = "Cornerstone";
@@ -28,7 +28,7 @@
 
 - Implicit declaration is when TS infers the type of data.
 
-```Typescript
+```JavaScript
     let myName = "Cornerstone"
     // here typescript will assume that this is a string since it's initial value is a string.
 ```
