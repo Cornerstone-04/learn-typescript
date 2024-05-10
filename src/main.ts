@@ -1,20 +1,42 @@
-const echo = <T>(arg: T): T => arg;
-
-const isObj = <T>(arg: T): boolean => {
-  return typeof arg === "object" && !Array.isArray(arg) && arg !== null;
-};
-
-interface BoolCheck<T> {
-  value: T;
-  is: boolean;
+//Utility types
+// partial
+interface Assignment {
+  studentID: string;
+  title: string;
+  grade: number;
+  verified?: boolean;
 }
 
-const isTrue = <T>(arg: T): BoolCheck<T> => {
-  if (Array.isArray(arg) && !arg.length) {
-    return { value: arg, is: false };
-  }
-  if (isObj(arg) && !Object.keys(arg as keyof T).length) {
-    return { value: arg, is: false };
-  }
-  return { value: arg, is: !!arg };
+const updateAssignment = (
+  assign: Assignment,
+  propsToUpdate: Partial<Assignment>
+): Assignment => {
+  return { ...assign, ...propsToUpdate };
+};
+
+const assign1: Assignment = {
+  studentID: "20/52HA058",
+  title: "Project",
+  grade: 5,
+};
+console.log(updateAssignment(assign1, { grade: 95 }));
+
+// required and readonly
+const recordAssignment = (assign: Required<Assignment>): Assignment => {
+  return assign;
+};
+
+// const assignVerified: Readonly <Assignment>= {...assignGraded, verified: true}
+
+const hexColorMap: Record<string, string> = {
+  red: "#FF0000",
+  green: "#00FF00",
+};
+
+type Students = "Sara" | "Kelly";
+type LetterGrades = "A" | "B" | "C";
+
+const finalGrades: Record<Students, LetterGrades> = {
+  Sara: "B",
+  Kelly: "C",
 };

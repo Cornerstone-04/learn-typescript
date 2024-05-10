@@ -1,14 +1,10 @@
 "use strict";
-const echo = (arg) => arg;
-const isObj = (arg) => {
-    return typeof arg === "object" && !Array.isArray(arg) && arg !== null;
+const updateAssignment = (assign, propsToUpdate) => {
+    return Object.assign(Object.assign({}, assign), propsToUpdate);
 };
-const isTrue = (arg) => {
-    if (Array.isArray(arg) && !arg.length) {
-        return { value: arg, is: false };
-    }
-    if (isObj(arg) && !Object.keys(arg).length) {
-        return { value: arg, is: false };
-    }
-    return { value: arg, is: !!arg };
+const assign1 = {
+    studentID: "20/52HA058",
+    title: "Project",
+    grade: 5,
 };
+console.log(updateAssignment(assign1, { grade: 95 }));
