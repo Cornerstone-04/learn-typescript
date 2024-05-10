@@ -1,33 +1,76 @@
-type One = string;
-type Two = string | number;
-type Three = "Hello";
+// Index Signatures
+interface TransactionObj {
+  //   Pizza: number;
+  //   Books: number;
+  //   Job: number;
+  [index: string]: number;
+}
 
-// Tyep assertion
-// convert to more or less specific
-let a: One = "Hello";
-let b = a as Two; //assign a less specific type
-let c = a as Three; //more specific
-let d = <One>"World";
-
-const addOrConcat = (
-  a: number,
-  b: number,
-  c: "add" | "concat"
-): number | string => {
-  if (c === "add") return a + b;
-  return " " + a + b;
+const todaysTransactions: TransactionObj = {
+  Pizza: -10,
+  Books: -5,
+  Job: 50,
 };
 
-let myVal: string = addOrConcat(2, 2, "concat") as string;
-// TS doesn't see the problem
-let nextVal: number = addOrConcat(2, 2, "concat") as number;
+console.log(todaysTransactions.Pizza);
+console.log(todaysTransactions["Pizza"]);
 
-console.log(myVal, nextVal);
+let prop: string = "Pizza";
+console.log(todaysTransactions[prop]);
 
-//The DOM
-const img = document.querySelector("img") as HTMLImageElement;
-// const myImg = document.getElementById("#img")! non null assertion;
-const myImg = document.getElementById("#img");
+const todaysNet = (transactions: TransactionObj): number => {
+  let total = 0;
+  for (const transaction in transactions) {
+    total += transactions[transaction];
+  }
+  return total;
+};
 
-img.src;
+console.log(todaysNet(todaysTransactions));
 
+console.log(todaysTransactions["Dave"]); //drawback because TS can't know what the keys are
+
+interface Student {
+  //   [key: string]: any;
+  name: string;
+  GPA: number;
+  classes?: number[];
+}
+
+const student: Student = {
+  name: "Cornerstone",
+  GPA: 4.27,
+  classes: [100, 200],
+};
+
+for (const key in student) {
+  console.log(`${key}: ${student[key as keyof Student]}`);
+}
+
+Object.keys(student).map((key) => {
+  console.log(student[key as keyof typeof student]);
+});
+
+const logStudent = (student: Student, key: keyof Student): void => {
+  console.log(`Student ${key}: ${student[key]}`);
+};
+
+logStudent(student, "GPA");
+
+// interface Incomes {
+//   [key: string]: number;
+// }
+
+type Streams = "salary" | "bonus" | "hustle";
+
+type Incomes = Record<Streams, number | string>;
+
+const monthlyIncomes: Incomes = {
+  salary: 500,
+  bonus: 100,
+  hustle: 250,
+};
+
+for (const revenue in monthlyIncomes) {
+  console.log(monthlyIncomes[revenue as keyof Incomes]);
+}

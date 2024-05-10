@@ -1,21 +1,42 @@
 "use strict";
-// Tyep assertion
-// convert to more or less specific
-let a = "Hello";
-let b = a; //assign a less specific type
-let c = a; //more specific
-let d = "World";
-const addOrConcat = (a, b, c) => {
-    if (c === "add")
-        return a + b;
-    return " " + a + b;
+const todaysTransactions = {
+    Pizza: -10,
+    Books: -5,
+    Job: 50,
 };
-let myVal = addOrConcat(2, 2, "concat");
-// TS doesn't see the problem
-let nextVal = addOrConcat(2, 2, "concat");
-console.log(myVal, nextVal);
-//The DOM
-const img = document.querySelector("img");
-// const myImg = document.getElementById("#img")! non null assertion;
-const myImg = document.getElementById("#img");
-img.src;
+console.log(todaysTransactions.Pizza);
+console.log(todaysTransactions["Pizza"]);
+let prop = "Pizza";
+console.log(todaysTransactions[prop]);
+const todaysNet = (transactions) => {
+    let total = 0;
+    for (const transaction in transactions) {
+        total += transactions[transaction];
+    }
+    return total;
+};
+console.log(todaysNet(todaysTransactions));
+console.log(todaysTransactions["Dave"]); //drawback because TS can't know what the keys are
+const student = {
+    name: "Cornerstone",
+    GPA: 4.27,
+    classes: [100, 200],
+};
+for (const key in student) {
+    console.log(`${key}: ${student[key]}`);
+}
+Object.keys(student).map((key) => {
+    console.log(student[key]);
+});
+const logStudent = (student, key) => {
+    console.log(`Student ${key}: ${student[key]}`);
+};
+logStudent(student, "GPA");
+const monthlyIncomes = {
+    salary: 500,
+    bonus: 100,
+    hustle: 250,
+};
+for (const revenue in monthlyIncomes) {
+    console.log(monthlyIncomes[revenue]);
+}

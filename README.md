@@ -287,3 +287,79 @@ const myImg = document.getElementById("#img");
 img.src;
 myImg.src //might be null
 ```
+
+---
+
+### Classes
+
+```Typescript
+class Coder {
+  constructor(
+    public readonly name: string,
+    public music: string,
+    private age: number,
+    protected lang: string
+  ) {
+    this.name = name;
+    this.music = music;
+    this.age = age;
+    this.lang = lang;
+  }
+
+  public getAge() {
+    return `Hello, I am ${this.age}`;
+  }
+}
+
+const Cornerstone = new Coder("Cornerstone", "Afrobeats", 20, "TypeScript");
+
+class WebDev extends Coder {
+  constructor(
+    public computer: string,
+    name: string,
+    music: string,
+    age: number,
+    lang: string
+  ) {
+    super(name, music, age, lang);
+    this.computer = computer;
+  }
+
+  public getLange() {
+    return `I write ${this.lang}`;
+  }
+}
+
+const Dave = new WebDev("Mac", "Dave", "Lofi", 25, "TypeScript");
+```
+
+## Getters & Setters
+
+```TypeScript
+class Bands {
+  private dataState: string[];
+
+  constructor() {
+    this.dataState = [];
+  }
+
+  public get data(): string[] {
+    return this.dataState;
+  }
+
+  public set data(value: string[]) {
+    if (
+      Array.isArray(value) &&
+      value.every((element) => typeof element === "string")
+    ) {
+      this.dataState = value;
+      return;
+    } else throw new Error("Param is not an array of strings");
+  }
+}
+
+
+const myBands = new Bands()
+myBands.data = ["The Cavemen", "Y2K"]
+console.log(myBands.data);
+```
