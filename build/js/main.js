@@ -1,42 +1,14 @@
 "use strict";
-const todaysTransactions = {
-    Pizza: -10,
-    Books: -5,
-    Job: 50,
+const echo = (arg) => arg;
+const isObj = (arg) => {
+    return typeof arg === "object" && !Array.isArray(arg) && arg !== null;
 };
-console.log(todaysTransactions.Pizza);
-console.log(todaysTransactions["Pizza"]);
-let prop = "Pizza";
-console.log(todaysTransactions[prop]);
-const todaysNet = (transactions) => {
-    let total = 0;
-    for (const transaction in transactions) {
-        total += transactions[transaction];
+const isTrue = (arg) => {
+    if (Array.isArray(arg) && !arg.length) {
+        return { value: arg, is: false };
     }
-    return total;
+    if (isObj(arg) && !Object.keys(arg).length) {
+        return { value: arg, is: false };
+    }
+    return { value: arg, is: !!arg };
 };
-console.log(todaysNet(todaysTransactions));
-console.log(todaysTransactions["Dave"]); //drawback because TS can't know what the keys are
-const student = {
-    name: "Cornerstone",
-    GPA: 4.27,
-    classes: [100, 200],
-};
-for (const key in student) {
-    console.log(`${key}: ${student[key]}`);
-}
-Object.keys(student).map((key) => {
-    console.log(student[key]);
-});
-const logStudent = (student, key) => {
-    console.log(`Student ${key}: ${student[key]}`);
-};
-logStudent(student, "GPA");
-const monthlyIncomes = {
-    salary: 500,
-    bonus: 100,
-    hustle: 250,
-};
-for (const revenue in monthlyIncomes) {
-    console.log(monthlyIncomes[revenue]);
-}
